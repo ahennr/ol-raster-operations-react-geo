@@ -1,1 +1,1 @@
-# ol-raster-operations-react-geo
+Raster operations with OpenLayers and react-geo

@@ -1,0 +1,30 @@
+{
+  "presets": [
+    "es2015",
+    "stage-0",
+    "react"
+  ],
+  "env": {
+    "coverage": {
+      "plugins": [
+        [
+          "istanbul", {
+            "exclude": [
+              "spec/**/*.spec.js*"
+            ]
+          }
+        ]
+      ]
+    }
+  },
+  "plugins": [
+    [
+      "import", {
+        "libraryName": "antd",
+        "style": true
+      }
+
+    ],
+    "transform-decorators-legacy"
+  ]
+}
