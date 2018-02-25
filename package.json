@@ -3,17 +3,48 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@terrestris/react-geo": "^4.0.1",
-    "antd": "^3.2.1",
-    "ol": "^4.6.4",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
+    "@terrestris/react-geo": "4.0.1",
+    "antd": "3.2.1",
+    "eslint": "4.10.0",
+    "eslint-config-react-app": "2.0.1",
+    "eslint-loader": "1.9.0",
+    "eslint-plugin-flowtype": "2.39.1",
+    "eslint-plugin-html": "4.0.1",
+    "eslint-plugin-import": "2.8.0",
+    "eslint-plugin-jsx-a11y": "5.1.1",
+    "eslint-plugin-react": "7.4.0",
+    "less": "2.7.3",
+    "less-loader": "4.0.5",
+    "ol": "4.6.4",
+    "react": "16.2.0",
+    "react-dom": "16.2.0",
     "react-scripts": "1.1.1"
   },
+  "devDependencies": {
+    "babel-cli": "6.26.0",
+    "babel-plugin-import": "1.6.3",
+    "babel-plugin-transform-decorators-legacy": "1.3.4",
+    "babel-preset-es2015": "6.24.1",
+    "babel-preset-stage-0": "6.24.1"
+  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "start": "node scripts/start.js",
+    "build": "node scripts/build.js",
+    "lint": "eslint -c .npmeslintrc --no-eslintrc --ext js,jsx,html src/ spec/",
+    "lint:fix": "eslint -c .npmeslintrc --no-eslintrc --fix --ext js,jsx,html src/ spec/",
+    "pretest": "npm run lint",
+    "test": "node scripts/test.js --env=jsdom"
+  },
+  "proxy": {
+    "/wmts_topplus_web_open": {
+      "target": "http://sgx.geodatenzentrum.de",
+      "changeOrigin": true,
+      "secure": false
+    },
+    "/osm": {
+      "target": "http://ows.terrestris.de",
+      "changeOrigin": true,
+      "secure": false
+    }
   }
 }
