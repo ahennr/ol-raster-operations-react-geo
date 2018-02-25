@@ -47,3 +47,16 @@
 .searchIcon {
   margin-right: 5px;
 }
+
+.react-geo-layertree {
+  position: absolute;
+  top: 5em;
+  z-index: 5;
+  background-color: rgba(255, 255, 255, 0.9);
+}
+
+.ant-radio-group {
+  position: absolute;
+  left: 5px;
+  bottom: 5px;
+}
