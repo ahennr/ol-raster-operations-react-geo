@@ -38,6 +38,14 @@ const MappifiedLt = mappify(LayerTree);
 */
 class Main extends Component {
 
+  _transformedLayerName = 'Transformed layer with image raster - operation';
+  _transformedLayerNamePixel = 'Transformed layer with pixel raster - operation';
+  _transformedLayerImage = null;
+  _transformedLayerPixel = null;
+  _rasterOperationLib = {
+    convolve: RasterOperations.convolve
+  }
+
   static propTypes = {
     /**
      * ol map instance bound to thie component.
@@ -55,9 +63,9 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedTransform: RasterOperations.invertColor,
-      operationType: 'pixel'
-      // operationType: 'image'
+      selectedTransform: RasterOperations.emboss,
+      // operationType: 'pixel'
+      operationType: 'image'
     };
   }
 
@@ -80,25 +88,33 @@ class Main extends Component {
       crossOrigin: 'anonymous',
       operation: selectedTransform,
       operationType: operationType,
-      lib: {
-        convolve: RasterOperations.convolve
-      }
+      lib: this._rasterOperationLib
     });
 
-    const transformedLayer = new OlImageLayer({
-      name: 'Transformed layer with raster-operation',
+    this._transformedLayer = new OlImageLayer({
+      name: this._transformedLayerName,
       source: raster
     });
 
-    map.setLayerGroup(new OlLayerGroup({
-      layers: [layer, transformedLayer]
-    }));
+    this._layerGroup = new OlLayerGroup({
+      layers: [layer, this._transformedLayer]
+    });
+
+    map.setLayerGroup(this._layerGroup);
+  }
+
+  updateMapView = () => {
+    const {
+      operationType,
+      selectedTransform
+    } = this.state;
+    
+    const rasterSource = this._transformedLayer.getSource();
+    rasterSource.setOperation(selectedTransform, this._rasterOperationLib);
+    rasterSource.set('operationType', operationType);
   }
 
   onChange = e => {
-    const { map } = this.props;
-    debugger
-
     const value = e.target.value;
     let operationType = 'image';
     let selectedTransform;
@@ -139,7 +155,7 @@ class Main extends Component {
     this.setState({
       operationType,
       selectedTransform
-    });
+    }, this.updateMapView);
   }
 
   /**
@@ -153,17 +169,17 @@ class Main extends Component {
             <Icon type="search" className="searchIcon" />
             <Search />
           </div>
-          <MappifiedLt />
+          <MappifiedLt layerGroup={this._layerGroup}/>
           <Map className="map" />
-          <RadioGroup onChange={this.onChange} defaultValue="invertColor">
-            <RadioButton value="invertColor">invertColor</RadioButton>
-            <RadioButton value="edge">edge</RadioButton>
+          <RadioGroup onChange={this.onChange} defaultValue="emboss">
+            {/* <RadioButton value="invertColor">invertColor</RadioButton> */}
+            {/* <RadioButton value="edge">edge</RadioButton> */}
             <RadioButton value="emboss">emboss</RadioButton>
             <RadioButton value="sharpen">sharpen</RadioButton>
             <RadioButton value="sobelHoriz">sobelHoriz</RadioButton>
             <RadioButton value="sobelVert">sobelVert</RadioButton>
             <RadioButton value="canny">canny</RadioButton>
-            <RadioButton value="gaussianBlur">gaussianBlur</RadioButton>
+            {/* <RadioButton value="gaussianBlur">gaussianBlur</RadioButton> */}
             <RadioButton value="log">Laplacian of Gaussian</RadioButton>
           </RadioGroup>
         </Content>

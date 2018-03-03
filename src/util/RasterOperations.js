@@ -12,11 +12,7 @@ class RasterOperations {
 
 
   /**
-   * Generates a shaded relief image given elevation data.  Uses a 3x3
-   * neighborhood for determining slope and aspect.
-   * @param {Array.<ImageData>} inputs Array of input images.
-   * @param {Object} data Data added in the "beforeoperations" event.
-   * @return {ImageData} Output image.
+   * 
    */
   static edge(inputs) {
     const mapImage = inputs[0];
@@ -36,11 +32,7 @@ class RasterOperations {
   }
 
   /**
-   * Generates a shaded relief image given elevation data.  Uses a 3x3
-   * neighborhood for determining slope and aspect.
-   * @param {Array.<ImageData>} inputs Array of input images.
-   * @param {Object} data Data added in the "beforeoperations" event.
-   * @return {ImageData} Output image.
+   * Emboss filter
    */
   static emboss(inputs) {
     const mapImage = inputs[0];
@@ -63,11 +55,7 @@ class RasterOperations {
   }
 
   /**
-   * Generates a shaded relief image given elevation data.  Uses a 3x3
-   * neighborhood for determining slope and aspect.
-   * @param {Array.<ImageData>} inputs Array of input images.
-   * @param {Object} data Data added in the "beforeoperations" event.
-   * @return {ImageData} Output image.
+   * Image sharpening
    */
   static sharpen(inputs) {
     const mapImage = inputs[0];
@@ -90,14 +78,7 @@ class RasterOperations {
   }
 
   /**
-   * https://docs.gimp.org/2.6/en/plug-in-convmatrix.html
-   * https://en.wikipedia.org/wiki/Kernel_(image_processing)
-   *
-   * Generates a shaded relief image given elevation data.  Uses a 3x3
-   * neighborhood for determining slope and aspect.
-   * @param {Array.<ImageData>} inputs Array of input images.
-   * @param {Object} data Data added in the "beforeoperations" event.
-   * @return {ImageData} Output image.
+   * Sobel operator horizontal
    */
   static sobelHoriz(inputs) {
     const mapImage = inputs[0];
@@ -120,14 +101,7 @@ class RasterOperations {
   }
 
   /**
-   * https://docs.gimp.org/2.6/en/plug-in-convmatrix.html
-   * https://en.wikipedia.org/wiki/Kernel_(image_processing)
-   *
-   * Generates a shaded relief image given elevation data.  Uses a 3x3
-   * neighborhood for determining slope and aspect.
-   * @param {Array.<ImageData>} inputs Array of input images.
-   * @param {Object} data Data added in the "beforeoperations" event.
-   * @return {ImageData} Output image.
+   * Sobel operator vertical
    */
   static sobelVert(inputs) {
     const mapImage = inputs[0];
@@ -150,14 +124,7 @@ class RasterOperations {
   }
 
   /**
-   * https://docs.gimp.org/2.6/en/plug-in-convmatrix.html
-   * https://en.wikipedia.org/wiki/Kernel_(image_processing)
-   *
-   * Generates a shaded relief image given elevation data.  Uses a 3x3
-   * neighborhood for determining slope and aspect.
-   * @param {Array.<ImageData>} inputs Array of input images.
-   * @param {Object} data Data added in the "beforeoperations" event.
-   * @return {ImageData} Output image.
+   * canny edge detection
    */
   static canny(inputs) {
     const mapImage = inputs[0];
@@ -180,14 +147,7 @@ class RasterOperations {
   }
 
   /**
-   * https://docs.gimp.org/2.6/en/plug-in-convmatrix.html
-   * https://en.wikipedia.org/wiki/Kernel_(image_processing)
-   *
-   * Generates a shaded relief image given elevation data.  Uses a 3x3
-   * neighborhood for determining slope and aspect.
-   * @param {Array.<ImageData>} inputs Array of input images.
-   * @param {Object} data Data added in the "beforeoperations" event.
-   * @return {ImageData} Output image.
+   * gaussian blur
    */
   static gaussianBlur(inputs) {
     const mapImage = inputs[0];
@@ -239,32 +199,7 @@ class RasterOperations {
   }
 
   /**
-   * apply Laplacian of Gaussian to image
-   */
-  static lowPass_5(inputs) {
-    const mapImage = inputs[0];
-    const width = mapImage.width;
-    const height = mapImage.height;
-
-    const kernel =
-      [1, 1, 1, 1, 1,
-        1, 4, 4, 4, 1,
-        1, 4, 12, 4, 1,
-        1, 4, 4, 4, 1,
-        1, 1, 1, 1, 1];
-
-    // eslint-disable-next-line
-    const outputImage = convolve(mapImage, kernel);
-
-    return {
-      data: outputImage,
-      width,
-      height
-    };
-  }
-
-
-  /**
+   * convolve image
    */
   static convolve(mapImage, convMatrix) {
     const width = mapImage.width;
