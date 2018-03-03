@@ -13,6 +13,7 @@
     "eslint-plugin-import": "2.8.0",
     "eslint-plugin-jsx-a11y": "5.1.1",
     "eslint-plugin-react": "7.4.0",
+    "gh-pages": "1.1.0",
     "less": "2.7.3",
     "less-loader": "4.0.5",
     "ol": "4.6.4",
@@ -33,7 +34,9 @@
     "lint": "eslint -c .npmeslintrc --no-eslintrc --ext js,jsx,html src/ spec/",
     "lint:fix": "eslint -c .npmeslintrc --no-eslintrc --fix --ext js,jsx,html src/ spec/",
     "pretest": "npm run lint",
-    "test": "node scripts/test.js --env=jsdom"
+    "test": "node scripts/test.js --env=jsdom",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "proxy": {
     "/wmts_topplus_web_open": {
@@ -46,5 +49,6 @@
       "changeOrigin": true,
       "secure": false
     }
-  }
+  },
+  "homepage": "https://ahennr.github.io/ol-raster-operations-react-geo"
 }
