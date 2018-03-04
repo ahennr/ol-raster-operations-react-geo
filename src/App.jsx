@@ -25,7 +25,7 @@ const MfMain = mappify(Main);
  */
 const mapPromise = new Promise(resolve => {
   const parser = new OlFormatWMTSCapabilities();
-  fetch('http://sgx.geodatenzentrum.de/wmts_topplus_web_open/1.0.0/WMTSCapabilities.xml')
+  fetch('/wmts_topplus_web_open/1.0.0/WMTSCapabilities.xml')
     .then(response => response.text())
     .then(text => {
       const result = parser.read(text);
@@ -34,7 +34,7 @@ const mapPromise = new Promise(resolve => {
         layer: 'web',
         matrixSet: 'EPSG:3857'
       });
-      // wmtsOptions.urls[0] = wmtsOptions.urls[0].replace('http://sgx.geodatenzentrum.de', '');
+      wmtsOptions.urls[0] = wmtsOptions.urls[0].replace('http://sgx.geodatenzentrum.de', '');
       wmtsOptions.crossOrigin = true;
       wmtsOptions.attributions = ['&copy; Bundesamt für Kartographie und Geodäsie &lt;2018&gt;, Datenquellen: <a href="http://sgx.geodatenzentrum.de/web_public/Datenquellen_TopPlus_Open.pdf">hier</a>'];
       const topoPlusSource = new OlSourceWMTS(wmtsOptions);
